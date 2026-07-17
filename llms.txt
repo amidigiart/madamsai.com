@@ -1,0 +1,27 @@
+# MadamsAI
+> AI Companion for Women Entrepreneurs & Career Growth — dual-engine verified
+
+## What is MadamsAI?
+MadamsAI is a dual-engine AI companion for women entrepreneurs, founders, and career professionals. Two AI models (Grok + DeepSeek) cross-verify every response — business and career advice you can trust.
+
+## Features
+- Business launch (ideation, validation, MVP, business model, growth)
+- Funding & finance (grants for women founders, pitch decks, bootstrapping, pricing)
+- Leadership (team building, negotiation, executive presence, imposter syndrome)
+- Career growth (personal branding, networking, career pivots, mentorship)
+- Work-life integration (boundaries, energy management, sustainable pace)
+- Marketing & sales (content strategy, community building, storytelling, PR)
+
+## Architecture
+- Dual-engine: Grok 4.5 (xAI) + DeepSeek
+- Anti-confabulation: trigram-cosine concordance >= 0.45 required
+- Stateless: queries processed in real-time, never stored
+
+## Compliance
+- EU AI Act (Reg. 2024/1689) Art. 50 — limited-risk, full transparency
+- GDPR (Reg. 2016/679) — minimal data, no query storage
+
+## Links
+- Website: https://madamsai.com
+- API: https://madamsai-api-production.up.railway.app
+- Contact: hello@madamsai.com
