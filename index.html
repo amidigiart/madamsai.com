@@ -13,159 +13,535 @@
 <link rel="canonical" href="https://madamsai.com">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#0d0a0e;--surface:#1a1220;--surface2:#241a2e;--text:#f5eef8;--text2:#c4a8d4;--accent:#e879a8;--gold:#f5c542;--border:#2e1f3a;--radius:14px;--font:'Segoe UI',system-ui,-apple-system,sans-serif}
-html{scroll-behavior:smooth}
-body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;min-height:100vh}
-a{color:var(--accent);text-decoration:none}
-a:hover{text-decoration:underline}
 
-.hero{text-align:center;padding:4rem 1.5rem 3rem;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:-40%;left:-20%;width:140%;height:140%;background:radial-gradient(ellipse at 50% 30%,rgba(232,121,168,.1) 0%,rgba(245,197,66,.05) 40%,transparent 65%);pointer-events:none}
-.hero h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:800;margin-bottom:.5rem;position:relative}
-.hero h1 .icon{font-size:clamp(2.2rem,5vw,3.4rem)}
-.hero .tagline{font-size:clamp(1rem,2.5vw,1.25rem);color:var(--text2);max-width:620px;margin:0 auto 1rem;line-height:1.7}
-.badge{display:inline-flex;align-items:center;gap:.4rem;background:var(--surface);border:1px solid var(--border);padding:.35rem .9rem;border-radius:20px;font-size:.8rem;color:var(--accent)}
-.badge .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+:root {
+  --bg: #0c0910;
+  --bg2: #110e17;
+  --surface: #181322;
+  --surface2: #1f1830;
+  --glass: rgba(30,22,46,.65);
+  --text: #f2ecf7;
+  --text2: #b8a5cc;
+  --text3: #7a6890;
+  --rose: #e8729e;
+  --rose-soft: rgba(232,114,158,.12);
+  --rose-glow: rgba(232,114,158,.06);
+  --gold: #e8c36a;
+  --gold-soft: rgba(232,195,106,.1);
+  --green: #5ec47a;
+  --border: rgba(232,114,158,.12);
+  --border2: rgba(255,255,255,.06);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --font: Georgia, 'Times New Roman', serif;
+  --font-ui: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --max: 680px;
+}
 
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;max-width:800px;margin:2rem auto;padding:0 1.5rem}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.3rem;text-align:left;transition:border-color .2s}
-.card:hover{border-color:var(--accent)}
-.card .ci{font-size:1.6rem;margin-bottom:.5rem}
-.card h3{font-size:.95rem;margin-bottom:.3rem;color:var(--text)}
-.card p{font-size:.8rem;color:var(--text2);line-height:1.5}
+html { scroll-behavior: smooth }
+body {
+  font-family: var(--font-ui);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  overflow-x: hidden;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--rose); text-decoration: none }
+a:hover { text-decoration: underline }
 
-.demo-preview{max-width:700px;margin:1.5rem auto 2.5rem;padding:0 1.5rem}
-.demo-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.2rem;font-size:.85rem;color:var(--text2);line-height:1.8}
-.demo-box .r{color:var(--accent)}
-.demo-box .g{color:var(--gold)}
-.demo-box .gr{color:#22c55e}
+/* ---- HERO ---- */
+.hero {
+  text-align: center;
+  padding: 5rem 1.5rem 3rem;
+  position: relative;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -100px; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, var(--rose-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-label {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-family: var(--font-ui);
+  font-size: .75rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--rose);
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+.hero-label .pulse {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--rose);
+  animation: pulse 2.5s ease infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.3;transform:scale(.8)} }
 
-.chat-section{max-width:700px;margin:0 auto 2rem;padding:0 1.5rem}
-.chat-section h2{text-align:center;font-size:1.3rem;margin-bottom:1rem}
-.chat-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
-#messages{padding:1.2rem;min-height:120px;max-height:420px;overflow-y:auto}
-.msg{margin-bottom:1rem;padding:.8rem 1rem;border-radius:10px;font-size:.9rem;line-height:1.7;max-width:88%;animation:fadeIn .3s}
-@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-.msg.assistant{background:var(--surface2);border:1px solid var(--border);color:var(--text)}
-.msg.user{background:var(--accent);color:#fff;margin-left:auto;text-align:right}
-.msg.system{background:transparent;border:1px dashed var(--border);color:var(--text2);text-align:center;max-width:100%;font-size:.85rem}
-.meta{font-size:.7rem;color:var(--text2);margin-top:.4rem;opacity:.7}
-.input-row{display:flex;gap:.5rem;padding:.8rem;border-top:1px solid var(--border)}
-#userInput{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:.65rem 1rem;color:var(--text);font-size:.9rem;font-family:var(--font);outline:none;resize:none}
-#userInput:focus{border-color:var(--accent)}
-#sendBtn{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:.65rem 1.3rem;font-weight:600;cursor:pointer;font-size:.9rem;transition:background .2s}
-#sendBtn:hover{background:#d4608e}
-#sendBtn:disabled{opacity:.5;cursor:not-allowed}
+.hero h1 {
+  font-family: var(--font);
+  font-size: clamp(2.6rem, 7vw, 4.2rem);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -.02em;
+  margin-bottom: 1.2rem;
+  position: relative;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--rose);
+}
+.hero .sub {
+  font-size: clamp(.95rem, 2.5vw, 1.15rem);
+  color: var(--text2);
+  max-width: 480px;
+  margin: 0 auto 2rem;
+  line-height: 1.8;
+}
 
-.free-note{text-align:center;font-size:.8rem;color:var(--text2);margin:1rem 0}
-.upgrade-row{text-align:center;margin:1rem 0 2rem}
-.upgrade-btn{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,var(--accent),var(--gold));color:#1a1220;font-weight:700;padding:.7rem 1.8rem;border-radius:10px;border:none;cursor:pointer;font-size:.95rem;transition:transform .15s}
-.upgrade-btn:hover{transform:scale(1.03);text-decoration:none}
+/* ---- LANG ---- */
+.lang-bar {
+  display: flex; gap: .25rem; justify-content: center;
+  margin-bottom: 3rem;
+}
+.lang-bar button {
+  background: transparent; border: 1px solid var(--border2);
+  color: var(--text3); padding: .3rem .65rem; border-radius: 6px;
+  cursor: pointer; font-size: .72rem; font-weight: 600;
+  font-family: var(--font-ui); transition: all .2s; letter-spacing: .04em;
+}
+.lang-bar button.active {
+  background: var(--rose-soft); color: var(--rose); border-color: var(--rose);
+}
+.lang-bar button:hover:not(.active) {
+  border-color: var(--text3); color: var(--text2);
+}
 
-.features{max-width:800px;margin:0 auto 3rem;padding:0 1.5rem}
-.features h2{text-align:center;font-size:1.3rem;margin-bottom:1.5rem}
-.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
-.feat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.2rem}
-.feat h3{font-size:.9rem;margin-bottom:.3rem}
-.feat p{font-size:.8rem;color:var(--text2)}
+/* ---- PILLARS ---- */
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: .75rem;
+  max-width: var(--max);
+  margin: 0 auto 4rem;
+  padding: 0 1.5rem;
+}
+@media (max-width: 560px) {
+  .pillars { grid-template-columns: repeat(2, 1fr) }
+}
+.pillar {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1.1rem 1rem;
+  text-align: center;
+  transition: border-color .25s, transform .25s;
+}
+.pillar:hover {
+  border-color: var(--rose);
+  transform: translateY(-2px);
+}
+.pillar-icon {
+  font-size: 1.4rem;
+  margin-bottom: .5rem;
+  display: block;
+}
+.pillar h3 {
+  font-family: var(--font);
+  font-size: .85rem;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: .25rem;
+}
+.pillar p {
+  font-size: .7rem;
+  color: var(--text3);
+  line-height: 1.5;
+}
 
-.compliance{max-width:700px;margin:0 auto 2rem;padding:0 1.5rem;text-align:center}
-.compliance-badges{display:flex;flex-wrap:wrap;justify-content:center;gap:.8rem;margin-top:.8rem}
-.cbadge{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.4rem .9rem;font-size:.75rem;color:var(--text2);cursor:pointer;transition:border-color .2s}
-.cbadge:hover{border-color:var(--accent)}
+/* ---- CHAT ---- */
+.chat-wrap {
+  max-width: var(--max);
+  margin: 0 auto 2rem;
+  padding: 0 1.5rem;
+}
+.chat-header {
+  text-align: center;
+  margin-bottom: 1.2rem;
+}
+.chat-header h2 {
+  font-family: var(--font);
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: .3rem;
+}
+.chat-header p {
+  font-size: .8rem;
+  color: var(--text3);
+}
+.chat-box {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+#messages {
+  padding: 1.5rem;
+  min-height: 140px;
+  max-height: 460px;
+  overflow-y: auto;
+}
+#messages::-webkit-scrollbar { width: 4px }
+#messages::-webkit-scrollbar-track { background: transparent }
+#messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px }
 
-footer{text-align:center;padding:2rem 1.5rem;color:var(--text2);font-size:.75rem;border-top:1px solid var(--border)}
-footer a{color:var(--accent)}
+.msg {
+  margin-bottom: 1.2rem;
+  padding: .9rem 1.1rem;
+  border-radius: var(--radius-sm);
+  font-size: .88rem;
+  line-height: 1.75;
+  max-width: 85%;
+  animation: msgIn .35s ease;
+}
+@keyframes msgIn {
+  from { opacity: 0; transform: translateY(8px) }
+  to { opacity: 1; transform: none }
+}
+.msg.assistant {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+.msg.user {
+  background: linear-gradient(135deg, var(--rose), #c45d8a);
+  color: #fff;
+  margin-left: auto;
+  text-align: right;
+  border: none;
+}
+.msg.system {
+  background: transparent;
+  border: 1px dashed var(--border2);
+  color: var(--text3);
+  text-align: center;
+  max-width: 100%;
+  font-size: .82rem;
+  padding: 1rem;
+}
+.meta {
+  font-size: .65rem;
+  color: var(--text3);
+  margin-top: .5rem;
+  opacity: .7;
+  font-family: var(--font-ui);
+  letter-spacing: .02em;
+}
 
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;align-items:center;justify-content:center;padding:1rem}
-.modal-overlay.active{display:flex}
-.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);max-width:600px;width:100%;max-height:80vh;overflow-y:auto;padding:2rem;position:relative}
-.modal h2{margin-bottom:1rem;font-size:1.2rem}
-.modal p,.modal li{font-size:.85rem;color:var(--text2);line-height:1.6;margin-bottom:.5rem}
-.modal ul{padding-left:1.2rem}
-.modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--text);font-size:1.3rem;cursor:pointer}
+.input-row {
+  display: flex;
+  gap: .5rem;
+  padding: .75rem;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+#userInput {
+  flex: 1;
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-sm);
+  padding: .7rem 1rem;
+  color: var(--text);
+  font-size: .88rem;
+  font-family: var(--font-ui);
+  outline: none;
+  resize: none;
+  transition: border-color .2s;
+}
+#userInput:focus { border-color: var(--rose) }
+#userInput::placeholder { color: var(--text3) }
+#sendBtn {
+  background: var(--rose);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: .7rem 1.4rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: .85rem;
+  font-family: var(--font-ui);
+  transition: all .2s;
+  letter-spacing: .02em;
+}
+#sendBtn:hover { background: #d4608e; transform: translateY(-1px) }
+#sendBtn:disabled { opacity: .4; cursor: not-allowed; transform: none }
 
-.lang-toggle{display:flex;gap:.3rem;justify-content:center;margin-top:.8rem}
-.lang-toggle button{background:var(--surface);border:1px solid var(--border);color:var(--text2);padding:.25rem .7rem;border-radius:6px;cursor:pointer;font-size:.78rem;font-weight:600;transition:all .2s}
-.lang-toggle button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
-[data-i18n]{transition:opacity .15s}
+/* ---- TIER ---- */
+.tier-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 1.5rem auto 0;
+  max-width: var(--max);
+  padding: 0 1.5rem;
+}
+.tier-free {
+  font-size: .78rem;
+  color: var(--text3);
+}
+.tier-free strong { color: var(--text2) }
+.upgrade-btn {
+  display: inline-flex;
+  align-items: center; gap: .4rem;
+  background: linear-gradient(135deg, var(--rose), var(--gold));
+  color: #1a1220;
+  font-weight: 700;
+  padding: .55rem 1.4rem;
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+  font-size: .82rem;
+  font-family: var(--font-ui);
+  letter-spacing: .02em;
+  transition: transform .15s, box-shadow .15s;
+  text-decoration: none;
+}
+.upgrade-btn:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 20px var(--rose-soft);
+  text-decoration: none;
+}
+
+/* ---- PROOF ---- */
+.proof {
+  max-width: var(--max);
+  margin: 4rem auto 3rem;
+  padding: 0 1.5rem;
+  text-align: center;
+}
+.proof h2 {
+  font-family: var(--font);
+  font-size: 1.3rem;
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+  color: var(--text2);
+}
+.proof-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .75rem;
+}
+@media (max-width: 480px) {
+  .proof-grid { grid-template-columns: 1fr }
+}
+.proof-item {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1.2rem;
+}
+.proof-num {
+  font-family: var(--font);
+  font-size: 1.8rem;
+  color: var(--rose);
+  line-height: 1;
+  margin-bottom: .3rem;
+}
+.proof-label {
+  font-size: .72rem;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+/* ---- COMPLIANCE ---- */
+.compliance {
+  max-width: var(--max);
+  margin: 0 auto 3rem;
+  padding: 0 1.5rem;
+  text-align: center;
+}
+.compliance-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .5rem;
+}
+.cbadge {
+  background: transparent;
+  border: 1px solid var(--border2);
+  border-radius: 20px;
+  padding: .3rem .8rem;
+  font-size: .7rem;
+  color: var(--text3);
+  cursor: pointer;
+  transition: all .2s;
+  font-family: var(--font-ui);
+}
+.cbadge:hover {
+  border-color: var(--rose);
+  color: var(--rose);
+}
+
+/* ---- FOOTER ---- */
+footer {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  color: var(--text3);
+  font-size: .72rem;
+  line-height: 1.8;
+  border-top: 1px solid var(--border2);
+}
+footer a { color: var(--text2) }
+footer a:hover { color: var(--rose) }
+.footer-brand {
+  font-family: var(--font);
+  font-size: .9rem;
+  color: var(--text2);
+  margin-bottom: .5rem;
+}
+.footer-eco {
+  font-size: .68rem;
+  color: var(--text3);
+  margin-top: .8rem;
+}
+
+/* ---- MODAL ---- */
+.modal-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.75);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  align-items: center; justify-content: center;
+  padding: 1rem;
+}
+.modal-overlay.active { display: flex }
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  max-width: 560px; width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 2rem;
+  position: relative;
+}
+.modal h2 { margin-bottom: 1rem; font-size: 1.1rem; font-family: var(--font) }
+.modal p, .modal li {
+  font-size: .82rem; color: var(--text2); line-height: 1.7; margin-bottom: .5rem;
+}
+.modal ul { padding-left: 1.2rem }
+.modal-close {
+  position: absolute; top: 1rem; right: 1rem;
+  background: none; border: none; color: var(--text3);
+  font-size: 1.2rem; cursor: pointer; transition: color .2s;
+}
+.modal-close:hover { color: var(--text) }
+
+[data-i18n] { transition: opacity .15s }
 </style>
 </head>
 <body>
 
-<div class="hero">
-  <h1><span class="icon">💎</span> MadamsAI</h1>
-  <p class="tagline" data-i18n="tagline">AI Companion for Women Entrepreneurs & Career Growth — dual-engine verified</p>
-  <div class="badge"><span class="dot"></span> Grok + DeepSeek dual-engine
-  <div class="lang-toggle"><button onclick="switchLang('en')" id="langEn" class="active">EN</button><button onclick="switchLang('ro')" id="langRo">RO</button><button onclick="switchLang('de')" id="langDe">DE</button><button onclick="switchLang('es')" id="langEs">ES</button><button onclick="switchLang('it')" id="langIt">IT</button><button onclick="switchLang('fr')" id="langFr">FR</button></div>
-</div>
+<section class="hero">
+  <div class="hero-label"><span class="pulse"></span> Dual-engine verified</div>
+  <h1>Your next move,<br><em>clarified</em></h1>
+  <p class="sub" data-i18n="tagline">AI companion for women entrepreneurs and career growth. Two engines verify every answer — so you move with confidence, not guesswork.</p>
+  <div class="lang-bar">
+    <button onclick="switchLang('en')" id="langEn" class="active">EN</button>
+    <button onclick="switchLang('ro')" id="langRo">RO</button>
+    <button onclick="switchLang('de')" id="langDe">DE</button>
+    <button onclick="switchLang('es')" id="langEs">ES</button>
+    <button onclick="switchLang('it')" id="langIt">IT</button>
+    <button onclick="switchLang('fr')" id="langFr">FR</button>
+  </div>
+</section>
 
-<div class="cards">
-  <div class="card"><div class="ci">🚀</div><h3 data-i18n="card1_h">Launch & Scale</h3><p>Business validation, MVP, revenue models, growth strategy — from idea to traction</p></div>
-  <div class="card"><div class="ci">💰</div><h3 data-i18n="card2_h">Funding & Finance</h3><p>Grants for women founders, pitch decks, bootstrapping, pricing, cash flow</p></div>
-  <div class="card"><div class="ci">👑</div><h3 data-i18n="card3_h">Leadership</h3><p>Team building, negotiation, executive presence, imposter syndrome, board skills</p></div>
-  <div class="card"><div class="ci">⚡</div><h3 data-i18n="card4_h">Career & Brand</h3><p>Personal branding, career pivots, visibility, networking, work-life integration</p></div>
-</div>
-
-<div class="demo-preview">
-  <div class="demo-box">
-    <span class="r">💎 Career Question:</span> How do I negotiate equity in my new role?<br><br>
-    <span class="g">⚡ Key Framework:</span><br>
-    &nbsp;&nbsp;1. <span class="gr">✅</span> Know your market value — research comparable roles on Levels.fyi / Glassdoor<br>
-    &nbsp;&nbsp;2. <span class="gr">✅</span> Understand the equity type (ISO, NSO, RSU) and vesting schedule<br>
-    &nbsp;&nbsp;3. <span class="gr">✅</span> Negotiate on total comp, not just salary — equity is leverage<br>
-    &nbsp;&nbsp;4. <span class="gr">✅</span> Ask for acceleration clause if pre-IPO/acquisition<br>
-    <span class="r">💡 Pro tip: Frame it as alignment — "I want skin in the game"</span>
+<div class="pillars">
+  <div class="pillar">
+    <span class="pillar-icon">&#9670;</span>
+    <h3 data-i18n="card1_h">Launch & Scale</h3>
+    <p data-i18n="card1_p">Idea to traction</p>
+  </div>
+  <div class="pillar">
+    <span class="pillar-icon">&#9671;</span>
+    <h3 data-i18n="card2_h">Funding</h3>
+    <p data-i18n="card2_p">Grants & revenue</p>
+  </div>
+  <div class="pillar">
+    <span class="pillar-icon">&#9674;</span>
+    <h3 data-i18n="card3_h">Leadership</h3>
+    <p data-i18n="card3_p">Presence & teams</p>
+  </div>
+  <div class="pillar">
+    <span class="pillar-icon">&#10022;</span>
+    <h3 data-i18n="card4_h">Career & Brand</h3>
+    <p data-i18n="card4_p">Visibility & pivots</p>
   </div>
 </div>
 
-<div class="chat-section">
-  <h2 data-i18n="chat_h2">Ask about business, career, or leadership</h2>
+<div class="chat-wrap">
+  <div class="chat-header">
+    <h2 data-i18n="chat_h2">Ask anything</h2>
+    <p>Business, career, leadership, funding — direct answers, no fluff.</p>
+  </div>
   <div class="chat-box">
     <div id="messages">
-      <div class="msg system">💎 MadamsAI — dual-engine verified advice for women entrepreneurs. 5 free questions/day.<br><em>Direct, actionable, no fluff. You've got this.</em></div>
+      <div class="msg system" data-i18n="sys_msg">Two AI engines cross-check every answer. 5 free questions per day. Ask anything about your business, career, or next move.</div>
     </div>
     <div class="input-row">
       <textarea id="userInput" rows="1" maxlength="2000" placeholder="e.g. How do I find grants for women-led startups in the EU?" data-i18n="placeholder"></textarea>
       <button id="sendBtn" onclick="sendMessage()" data-i18n="send">Send</button>
     </div>
   </div>
-  <p class="free-note">Free: 5 questions/day &nbsp;|&nbsp; <strong>Pro:</strong> unlimited</p>
-  <div class="upgrade-row"><button class="upgrade-btn" onclick="upgrade()"><span data-i18n="upgrade">💎 Upgrade to Pro — €9.99/mo</span></button></div>
-</div>
-
-<div class="features">
-  <h2 data-i18n="feat_h2">What MadamsAI can help with</h2>
-  <div class="feat-grid">
-    <div class="feat"><h3></h3><p>Ideation, validation, lean startup, business model canvas, market-founder fit</p></div>
-    <div class="feat"><h3>💰 Funding & Grants</h3><p>EU grants for women, pitch decks, angel investors, bootstrapping, revenue models</p></div>
-    <div class="feat"><h3>👑 Leadership</h3><p>Team building, hiring, delegation, conflict resolution, executive presence</p></div>
-    <div class="feat"><h3>📈 Career Growth</h3><p>Salary negotiation, personal branding, networking, career pivots, mentorship</p></div>
-    <div class="feat"><h3>⚖️ Work-Life</h3><p>Boundaries, energy management, parental leave, return-to-work, sustainable pace</p></div>
-    <div class="feat"><h3>📣 Marketing & Sales</h3><p>Content strategy, social media, community building, storytelling, PR basics</p></div>
+  <div class="tier-bar">
+    <span class="tier-free">Free: <strong>5/day</strong></span>
+    <button class="upgrade-btn" onclick="upgrade()"><span data-i18n="upgrade">Pro — €9.99/mo</span></button>
   </div>
 </div>
 
+<section class="proof">
+  <h2 data-i18n="feat_h2">Built different</h2>
+  <div class="proof-grid">
+    <div class="proof-item">
+      <div class="proof-num">2</div>
+      <div class="proof-label">AI engines per answer</div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-num">0</div>
+      <div class="proof-label">Data stored</div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-num">6</div>
+      <div class="proof-label">Languages</div>
+    </div>
+  </div>
+</section>
+
 <div class="compliance">
-  <p data-i18n="compliance_p">Regulation-aware AI</p>
-  <div class="compliance-badges">
-    <span class="cbadge" onclick="showModal('euai')">🇪🇺 EU AI Act</span>
-    <span class="cbadge" onclick="showModal('gdpr')">🛡️ GDPR</span>
-    <span class="cbadge" onclick="showModal('privacy')">🔒 Privacy</span>
-    <span class="cbadge" onclick="showModal('terms')">📄 Terms</span>
+  <div class="compliance-row">
+    <span class="cbadge" onclick="showModal('euai')">EU AI Act</span>
+    <span class="cbadge" onclick="showModal('gdpr')">GDPR</span>
+    <span class="cbadge" onclick="showModal('privacy')">Privacy</span>
+    <span class="cbadge" onclick="showModal('terms')">Terms</span>
   </div>
 </div>
 
 <footer>
-  &copy; 2026 MadamsAI — part of amiecosystems &nbsp;|&nbsp; <a href="mailto:hello@madamsai.com">Contact</a>
-  &nbsp;|&nbsp; <a href="#" onclick="showModal('privacy');return false">Privacy</a>
-  &nbsp;|&nbsp; <a href="#" onclick="showModal('terms');return false">Terms</a>
-  <br><br>
-  <span style="font-size:.7rem;color:#555">
-    MadamsAI is an AI advisory tool — not a substitute for legal, financial, or therapeutic professionals.<br>
-    EU AI Act (Reg. 2024/1689) Art. 50 — limited-risk AI, transparency provided.
+  <div class="footer-brand">MadamsAI</div>
+  <a href="mailto:hello@madamsai.com">Contact</a> &nbsp;&middot;&nbsp;
+  <a href="#" onclick="showModal('privacy');return false">Privacy</a> &nbsp;&middot;&nbsp;
+  <a href="#" onclick="showModal('terms');return false">Terms</a>
+  <br>
+  <span style="font-size:.68rem" data-i18n="footer_disc">
+    AI advisory tool — not a substitute for legal, financial, or therapeutic professionals.
+    EU AI Act Art. 50 — limited-risk, transparency provided.
   </span>
+  <div class="footer-eco">Part of <a href="https://amiecosystems.com">ami* ecosystems</a></div>
 </footer>
 
 <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
@@ -195,7 +571,7 @@ try{
 const r=await fetch(API_BASE+'/companion/madams/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:msg,locale:navigator.language?.slice(0,2)||'EN'})});
 if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e.detail||r.statusText)}
 const d=await r.json();
-const meta=d.concordance!=null?`Engine: ${d.engine} | Concordance: ${(d.concordance*100).toFixed(0)}% | ${d.decision} | ${d.latency_s.toFixed(1)}s`:`Engine: ${d.engine}`;
+const meta=d.concordance!=null?`${d.engine} · concordance ${(d.concordance*100).toFixed(0)}% · ${d.latency_s.toFixed(1)}s`:`${d.engine}`;
 addMsg(d.response,'assistant',meta);
 usage.count++;setUsage(usage);
 }catch(e){addMsg('Connection error: '+e.message,'system')}
@@ -211,17 +587,33 @@ const d=await r.json();window.location.href=d.url}catch(e){alert('Checkout unava
 }
 
 const modals={
-euai:`<h2>🇪🇺 EU AI Act Compliance</h2><p>MadamsAI is classified as <strong>limited-risk AI</strong> under Regulation (EU) 2024/1689.</p><ul><li><strong>Art. 50 Transparency:</strong> Users are clearly informed they interact with an AI system</li><li><strong>Dual-engine verification:</strong> Two independent AI models cross-check every response</li><li><strong>No autonomous decisions:</strong> Advisory tool only — users make all business decisions</li><li><strong>Human oversight:</strong> Users decide whether to apply any advice</li></ul><p>Provider: MadamsAI, Brăila, Romania, EU.</p>`,
-gdpr:`<h2>🛡️ GDPR Compliance</h2><p>Data protection under Regulation (EU) 2016/679:</p><ul><li><strong>No chat storage:</strong> Queries processed in real-time, never persisted</li><li><strong>No user profiles:</strong> No accounts required for free tier</li><li><strong>Minimal data:</strong> Only IP for rate limiting (not logged)</li><li><strong>Cookie-free:</strong> Only localStorage for usage counter</li><li><strong>Stripe payments:</strong> Handled by Stripe Inc. (PCI DSS certified)</li><li><strong>Data requests:</strong> Email privacy@madamsai.com</li><li><strong>Right to erasure:</strong> No data to erase — stateless by design</li></ul>`,
-privacy:`<h2>🔒 Privacy Policy</h2><p><strong>MadamsAI</strong> — last updated: July 2025</p><ul><li><strong>Data collected:</strong> None persistently. Chat is stateless.</li><li><strong>localStorage:</strong> Daily question counter only (never transmitted)</li><li><strong>Payments:</strong> Processed entirely by Stripe. We never see card details.</li><li><strong>Analytics:</strong> None. No tracking pixels, no cookies.</li><li><strong>Third parties:</strong> Grok (xAI) and DeepSeek process queries in real-time with no retention</li><li><strong>Security:</strong> All traffic encrypted via TLS.</li></ul><p>Contact: privacy@madamsai.com</p>`,
-terms:`<h2>📄 Terms of Service</h2><p><strong>MadamsAI</strong> — last updated: July 2025</p><ul><li><strong>Service:</strong> AI-powered business and career advisory tool</li><li><strong>Not a substitute:</strong> For lawyers, financial advisors, or therapists</li><li><strong>No warranty:</strong> Business advice is educational — validate with qualified professionals</li><li><strong>Inclusive:</strong> Open to all who identify as women</li><li><strong>Free tier:</strong> 5 questions/day, no account required</li><li><strong>Pro tier:</strong> €9.99/month, cancel anytime via Stripe portal</li><li><strong>Liability:</strong> We are not liable for business decisions made based on advice</li></ul><p>Contact: hello@madamsai.com</p>`
+euai:`<h2>EU AI Act Compliance</h2><p>MadamsAI is classified as <strong>limited-risk AI</strong> under Regulation (EU) 2024/1689.</p><ul><li><strong>Art. 50 Transparency:</strong> Users are clearly informed they interact with an AI system</li><li><strong>Dual-engine verification:</strong> Two independent AI models cross-check every response</li><li><strong>No autonomous decisions:</strong> Advisory tool only — users make all business decisions</li><li><strong>Human oversight:</strong> Users decide whether to apply any advice</li></ul><p>Provider: MadamsAI, Braila, Romania, EU.</p>`,
+gdpr:`<h2>GDPR Compliance</h2><p>Data protection under Regulation (EU) 2016/679:</p><ul><li><strong>No chat storage:</strong> Queries processed in real-time, never persisted</li><li><strong>No user profiles:</strong> No accounts required for free tier</li><li><strong>Minimal data:</strong> Only IP for rate limiting (not logged)</li><li><strong>Cookie-free:</strong> Only localStorage for usage counter</li><li><strong>Stripe payments:</strong> Handled by Stripe Inc. (PCI DSS certified)</li><li><strong>Data requests:</strong> Email privacy@madamsai.com</li><li><strong>Right to erasure:</strong> No data to erase — stateless by design</li></ul>`,
+privacy:`<h2>Privacy Policy</h2><p><strong>MadamsAI</strong> — last updated: July 2026</p><ul><li><strong>Data collected:</strong> None persistently. Chat is stateless.</li><li><strong>localStorage:</strong> Daily question counter only (never transmitted)</li><li><strong>Payments:</strong> Processed entirely by Stripe. We never see card details.</li><li><strong>Analytics:</strong> None. No tracking pixels, no cookies.</li><li><strong>Third parties:</strong> Grok (xAI) and DeepSeek process queries in real-time with no retention</li><li><strong>Security:</strong> All traffic encrypted via TLS.</li></ul><p>Contact: privacy@madamsai.com</p>`,
+terms:`<h2>Terms of Service</h2><p><strong>MadamsAI</strong> — last updated: July 2026</p><ul><li><strong>Service:</strong> AI-powered business and career advisory tool</li><li><strong>Not a substitute:</strong> For lawyers, financial advisors, or therapists</li><li><strong>No warranty:</strong> Business advice is educational — validate with qualified professionals</li><li><strong>Inclusive:</strong> Open to all who identify as women</li><li><strong>Free tier:</strong> 5 questions/day, no account required</li><li><strong>Pro tier:</strong> €9.99/month, cancel anytime via Stripe portal</li><li><strong>Liability:</strong> We are not liable for business decisions made based on advice</li></ul><p>Contact: hello@madamsai.com</p>`
 };
 function showModal(k){document.getElementById('modalContent').innerHTML=modals[k]||'';document.getElementById('modalOverlay').classList.add('active')}
 function closeModal(){document.getElementById('modalOverlay').classList.remove('active')}
 
-
-// i18n
-const T = {"tagline": {"en": "AI Companion for Women Entrepreneurs & Career Growth — dual-engine verified", "ro": "Companion AI pentru Antreprenoare & Creștere în Carieră — verificat cu motor dual", "de": "KI-Begleiterin für Unternehmerinnen & Karrierewachstum — dual-engine verifiziert", "es": "Compañera IA para Emprendedoras y Crecimiento Profesional — verificado con doble motor", "it": "Compagna IA per Imprenditrici e Crescita Professionale — verificato con doppio motore", "fr": "Compagnon IA pour Entrepreneures & Évolution de Carrière — vérifié à double moteur"}, "card1_h": {"en": "Launch & Scale", "ro": "Lansare & Scalare", "de": "Gründung & Skalierung", "es": "Lanzamiento y Escalabilidad", "it": "Lancio e Scalabilità", "fr": "Lancement & Croissance"}, "card1_p": {"en": "Business validation, MVP, revenue models, growth strategy — from idea to traction", "ro": "Validare business, MVP, modele de venit, strategie de creștere — de la idee la tracțiune", "de": "Geschäftsvalidierung, MVP, Umsatzmodelle, Wachstumsstrategie — von der Idee zur Traktion", "es": "Validación de negocio, MVP, modelos de ingresos, estrategia de crecimiento — de la idea a la tracción", "it": "Validazione business, MVP, modelli di ricavo, strategia di crescita — dall’idea alla trazione", "fr": "Validation business, MVP, modèles de revenus, stratégie de croissance — de l’idée à la traction"}, "card2_h": {"en": "Funding & Finance", "ro": "Finanțare", "de": "Finanzierung", "es": "Financiación", "it": "Finanziamento", "fr": "Financement"}, "card2_p": {"en": "Grants for women founders, pitch decks, bootstrapping, pricing, cash flow", "ro": "Granturi pentru fondatoare, pitch deck-uri, bootstrapping, prețuri, cash flow", "de": "Förderungen für Gründerinnen, Pitch Decks, Bootstrapping, Preisgestaltung, Cashflow", "es": "Subvenciones para fundadoras, pitch decks, bootstrapping, precios, flujo de caja", "it": "Sovvenzioni per fondatrici, pitch deck, bootstrapping, prezzi, flusso di cassa", "fr": "Subventions pour fondatrices, pitch decks, bootstrapping, tarification, trésorerie"}, "card3_h": {"en": "Leadership", "ro": "Leadership", "de": "Führung", "es": "Liderazgo", "it": "Leadership", "fr": "Leadership"}, "card3_p": {"en": "Team building, negotiation, executive presence, imposter syndrome, board skills", "ro": "Construirea echipei, negociere, prezență executivă, sindromul impostorului, abilități de board", "de": "Teamaufbau, Verhandlung, Executive Presence, Impostor-Syndrom, Vorstandskompetenz", "es": "Construcción de equipo, negociación, presencia ejecutiva, síndrome del impostor, habilidades de junta", "it": "Costruzione del team, negoziazione, presenza esecutiva, sindrome dell’impostore, competenze di board", "fr": "Équipe, négociation, présence exécutive, syndrome de l’imposteur, compétences de conseil"}, "card4_h": {"en": "Career & Brand", "ro": "Carieră & Brand", "de": "Karriere & Marke", "es": "Carrera y Marca", "it": "Carriera e Brand", "fr": "Carrière & Marque"}, "card4_p": {"en": "Personal branding, career pivots, visibility, networking, work-life integration", "ro": "Brand personal, pivoturi de carieră, vizibilitate, networking, integrare muncă-viață", "de": "Personal Branding, Karrierewechsel, Sichtbarkeit, Networking, Work-Life-Integration", "es": "Marca personal, cambio de carrera, visibilidad, networking, integración trabajo-vida", "it": "Personal branding, cambi di carriera, visibilità, networking, integrazione lavoro-vita", "fr": "Marque personnelle, reconversion, visibilité, networking, intégration travail-vie"}, "chat_h2": {"en": "Ask about business, career, or leadership", "ro": "Întreabă despre business, carieră sau leadership", "de": "Fragen zu Business, Karriere oder Führung", "es": "Pregunta sobre negocios, carrera o liderazgo", "it": "Chiedi di business, carriera o leadership", "fr": "Posez vos questions sur le business, la carrière ou le leadership"}, "sys_msg": {"en": "MadamsAI — dual-engine verified advice for women entrepreneurs. 5 free questions/day.", "ro": "MadamsAI — sfaturi verificate dual-engine pentru antreprenoare. 5 întrebări gratuite/zi.", "de": "MadamsAI — dual-engine verifizierte Beratung für Unternehmerinnen. 5 kostenlose Fragen/Tag.", "es": "MadamsAI — asesoramiento verificado con doble motor para emprendedoras. 5 preguntas gratis/día.", "it": "MadamsAI — consulenza verificata dual-engine per imprenditrici. 5 domande gratuite/giorno.", "fr": "MadamsAI — conseils vérifiés à double moteur pour entrepreneures. 5 questions gratuites/jour."}, "placeholder": {"en": "e.g. How do I find grants for women-led startups in the EU?", "ro": "ex. Cum găsesc granturi pentru startup-uri conduse de femei în UE?", "de": "z.B. Wie finde ich Förderungen für von Frauen geführte Startups in der EU?", "es": "ej. ¿Cómo encuentro subvenciones para startups lideradas por mujeres en la UE?", "it": "es. Come trovo sovvenzioni per startup guidate da donne nell’UE?", "fr": "ex. Comment trouver des subventions pour startups dirigées par des femmes dans l’UE ?"}, "send": {"en": "Send", "ro": "Trimite", "de": "Senden", "es": "Enviar", "it": "Invia", "fr": "Envoyer"}, "free_note": {"en": "Free: 5 questions/day", "ro": "Gratuit: 5 întrebări/zi", "de": "Kostenlos: 5 Fragen/Tag", "es": "Gratis: 5 preguntas/día", "it": "Gratis: 5 domande/giorno", "fr": "Gratuit : 5 questions/jour"}, "pro": {"en": "Pro:", "ro": "Pro:", "de": "Pro:", "es": "Pro:", "it": "Pro:", "fr": "Pro :"}, "unlimited": {"en": "unlimited", "ro": "nelimitat", "de": "unbegrenzt", "es": "ilimitado", "it": "illimitato", "fr": "illimité"}, "upgrade": {"en": "Upgrade to Pro — €9.99/mo", "ro": "Upgrade la Pro — €9.99/lună", "de": "💎 Upgrade auf Pro — 9,99 €/Monat", "es": "💎 Mejorar a Pro — 9,99 €/mes", "it": "💎 Passa a Pro — 9,99 €/mese", "fr": "💎 Passer à Pro — 9,99 €/mois"}, "feat_h2": {"en": "What MadamsAI can help with", "ro": "Cum te poate ajuta MadamsAI", "de": "Wie MadamsAI helfen kann", "es": "Cómo puede ayudarte MadamsAI", "it": "Come può aiutarti MadamsAI", "fr": "Comment MadamsAI peut vous aider"}, "compliance_p": {"en": "Regulation-aware AI", "ro": "AI conform cu legislația", "de": "Regulierungskonforme KI", "es": "IA con consciencia regulatoria", "it": "IA conforme alle normative", "fr": "IA conforme à la réglementation"}, "footer_disc": {"en": "MadamsAI is an AI advisory tool — not a substitute for legal, financial, or therapeutic professionals.", "ro": "MadamsAI este un instrument AI de consiliere — nu înlocuiește profesioniștii din domeniul juridic, financiar sau terapeutic.", "de": "MadamsAI ist ein KI-Beratungstool — kein Ersatz für Rechts-, Finanz- oder therapeutische Fachleute.", "es": "MadamsAI es una herramienta de asesoramiento IA — no sustituye a profesionales legales, financieros o terapéuticos.", "it": "MadamsAI è uno strumento di consulenza IA — non sostituisce professionisti legali, finanziari o terapeutici.", "fr": "MadamsAI est un outil de conseil IA — ne remplace pas les professionnels juridiques, financiers ou thérapeutiques."}};
+const T = {
+"tagline": {"en":"AI companion for women entrepreneurs and career growth. Two engines verify every answer — so you move with confidence, not guesswork.","ro":"Companion AI pentru antreprenoare si crestere in cariera. Doua motoare verifica fiecare raspuns — te misti cu incredere, nu cu presupuneri.","de":"KI-Begleiterin fur Unternehmerinnen und Karrierewachstum. Zwei Engines prufen jede Antwort — damit Sie mit Sicherheit handeln.","es":"Companera IA para emprendedoras y crecimiento profesional. Dos motores verifican cada respuesta — avanza con confianza.","it":"Compagna IA per imprenditrici e crescita professionale. Due motori verificano ogni risposta — muoviti con sicurezza.","fr":"Compagnon IA pour entrepreneures et evolution de carriere. Deux moteurs verifient chaque reponse — avancez en confiance."},
+"card1_h":{"en":"Launch & Scale","ro":"Lansare","de":"Grundung","es":"Lanzamiento","it":"Lancio","fr":"Lancement"},
+"card1_p":{"en":"Idea to traction","ro":"De la idee la tractiune","de":"Von der Idee zur Traktion","es":"De idea a traccion","it":"Dall'idea alla trazione","fr":"De l'idee a la traction"},
+"card2_h":{"en":"Funding","ro":"Finantare","de":"Finanzierung","es":"Financiacion","it":"Finanziamento","fr":"Financement"},
+"card2_p":{"en":"Grants & revenue","ro":"Granturi si venituri","de":"Forderungen & Umsatz","es":"Subvenciones e ingresos","it":"Sovvenzioni e ricavi","fr":"Subventions & revenus"},
+"card3_h":{"en":"Leadership","ro":"Leadership","de":"Fuhrung","es":"Liderazgo","it":"Leadership","fr":"Leadership"},
+"card3_p":{"en":"Presence & teams","ro":"Prezenta si echipe","de":"Prasenz & Teams","es":"Presencia y equipos","it":"Presenza e team","fr":"Presence & equipes"},
+"card4_h":{"en":"Career & Brand","ro":"Cariera & Brand","de":"Karriere & Marke","es":"Carrera y Marca","it":"Carriera e Brand","fr":"Carriere & Marque"},
+"card4_p":{"en":"Visibility & pivots","ro":"Vizibilitate si pivoturi","de":"Sichtbarkeit & Wechsel","es":"Visibilidad y cambios","it":"Visibilita e pivot","fr":"Visibilite & pivots"},
+"chat_h2":{"en":"Ask anything","ro":"Intreaba orice","de":"Fragen Sie","es":"Pregunta lo que quieras","it":"Chiedi qualsiasi cosa","fr":"Posez votre question"},
+"sys_msg":{"en":"Two AI engines cross-check every answer. 5 free questions per day. Ask anything about your business, career, or next move.","ro":"Doua motoare AI verifica fiecare raspuns. 5 intrebari gratuite/zi. Intreaba orice despre business, cariera sau urmatorul pas.","de":"Zwei KI-Engines prufen jede Antwort. 5 kostenlose Fragen/Tag. Fragen Sie zu Business, Karriere oder nachsten Schritten.","es":"Dos motores IA verifican cada respuesta. 5 preguntas gratis/dia. Pregunta sobre negocio, carrera o proximos pasos.","it":"Due motori IA verificano ogni risposta. 5 domande gratuite/giorno. Chiedi di business, carriera o prossimi passi.","fr":"Deux moteurs IA verifient chaque reponse. 5 questions gratuites/jour. Posez vos questions sur le business, la carriere ou vos prochains pas."},
+"placeholder":{"en":"e.g. How do I find grants for women-led startups in the EU?","ro":"ex. Cum gasesc granturi pentru startup-uri conduse de femei in UE?","de":"z.B. Wie finde ich Forderungen fur von Frauen gefuhrte Startups in der EU?","es":"ej. Como encuentro subvenciones para startups lideradas por mujeres en la UE?","it":"es. Come trovo sovvenzioni per startup guidate da donne nell'UE?","fr":"ex. Comment trouver des subventions pour startups dirigees par des femmes dans l'UE ?"},
+"send":{"en":"Send","ro":"Trimite","de":"Senden","es":"Enviar","it":"Invia","fr":"Envoyer"},
+"upgrade":{"en":"Pro — €9.99/mo","ro":"Pro — €9.99/luna","de":"Pro — 9,99 €/Monat","es":"Pro — 9,99 €/mes","it":"Pro — 9,99 €/mese","fr":"Pro — 9,99 €/mois"},
+"feat_h2":{"en":"Built different","ro":"Construit diferit","de":"Anders gebaut","es":"Construido diferente","it":"Costruito diversamente","fr":"Construit differemment"},
+"compliance_p":{"en":"Regulation-aware AI","ro":"AI conform cu legislatia","de":"Regulierungskonforme KI","es":"IA con consciencia regulatoria","it":"IA conforme alle normative","fr":"IA conforme a la reglementation"},
+"footer_disc":{"en":"AI advisory tool — not a substitute for legal, financial, or therapeutic professionals. EU AI Act Art. 50 — limited-risk, transparency provided.","ro":"Instrument AI de consiliere — nu inlocuieste profesionistii din domeniul juridic, financiar sau terapeutic.","de":"KI-Beratungstool — kein Ersatz fur Rechts-, Finanz- oder therapeutische Fachleute.","es":"Herramienta de asesoramiento IA — no sustituye a profesionales legales, financieros o terapeuticos.","it":"Strumento di consulenza IA — non sostituisce professionisti legali, finanziari o terapeutici.","fr":"Outil de conseil IA — ne remplace pas les professionnels juridiques, financiers ou therapeutiques."}
+};
 let currentLang = localStorage.getItem('madamsai_lang') || 'en';
 
 function switchLang(lang) {
@@ -243,8 +635,7 @@ function switchLang(lang) {
   });
 }
 
-// Apply saved language on load
-document.addEventListener('DOMContentLoaded', () => { if (currentLang !== 'en') switchLang(currentLang); });
+document.addEventListener('DOMContentLoaded', function() { if (currentLang !== 'en') switchLang(currentLang); });
 </script>
 </body>
 </html>
